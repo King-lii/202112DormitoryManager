@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cb.dt.mapper.VisitorMapper">
+  <resultMap id="BaseResultMap" type="com.cb.dt.domain.Visitor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vtname" jdbcType="VARCHAR" property="vtname" />
+    <result column="vtphone" jdbcType="VARCHAR" property="vtphone" />
+    <result column="vtsex" jdbcType="INTEGER" property="vtsex" />
+    <result column="vtidentity" jdbcType="VARCHAR" property="vtidentity" />
+    <result column="vtroom" jdbcType="VARCHAR" property="vtroom" />
+    <result column="vtbetime" jdbcType="TIMESTAMP" property="vtbetime" />
+    <result column="vtendtime" jdbcType="TIMESTAMP" property="vtendtime" />
+    <result column="vtdes" jdbcType="VARCHAR" property="vtdes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, vtname, vtphone, vtsex, vtidentity, vtroom, vtbetime, vtendtime, vtdes
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dt_visitor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dt_visitor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cb.dt.domain.Visitor">
+    insert into dt_visitor (id, vtname, vtphone, 
+      vtsex, vtidentity, vtroom, 
+      vtbetime, vtendtime, vtdes
+      )
+    values (#{id,jdbcType=INTEGER}, #{vtname,jdbcType=VARCHAR}, #{vtphone,jdbcType=VARCHAR}, 
+      #{vtsex,jdbcType=INTEGER}, #{vtidentity,jdbcType=VARCHAR}, #{vtroom,jdbcType=VARCHAR}, 
+      #{vtbetime,jdbcType=TIMESTAMP}, #{vtendtime,jdbcType=TIMESTAMP}, #{vtdes,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cb.dt.domain.Visitor">
+    insert into dt_visitor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vtname != null">
+        vtname,
+      </if>
+      <if test="vtphone != null">
+        vtphone,
+      </if>
+      <if test="vtsex != null">
+        vtsex,
+      </if>
+      <if test="vtidentity != null">
+        vtidentity,
+      </if>
+      <if test="vtroom != null">
+        vtroom,
+      </if>
+      <if test="vtbetime != null">
+        vtbetime,
+      </if>
+      <if test="vtendtime != null">
+        vtendtime,
+      </if>
+      <if test="vtdes != null">
+        vtdes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vtname != null">
+        #{vtname,jdbcType=VARCHAR},
+      </if>
+      <if test="vtphone != null">
+        #{vtphone,jdbcType=VARCHAR},
+      </if>
+      <if test="vtsex != null">
+        #{vtsex,jdbcType=INTEGER},
+      </if>
+      <if test="vtidentity != null">
+        #{vtidentity,jdbcType=VARCHAR},
+      </if>
+      <if test="vtroom != null">
+        #{vtroom,jdbcType=VARCHAR},
+      </if>
+      <if test="vtbetime != null">
+        #{vtbetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vtendtime != null">
+        #{vtendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vtdes != null">
+        #{vtdes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cb.dt.domain.Visitor">
+    update dt_visitor
+    <set>
+      <if test="vtname != null">
+        vtname = #{vtname,jdbcType=VARCHAR},
+      </if>
+      <if test="vtphone != null">
+        vtphone = #{vtphone,jdbcType=VARCHAR},
+      </if>
+      <if test="vtsex != null">
+        vtsex = #{vtsex,jdbcType=INTEGER},
+      </if>
+      <if test="vtidentity != null">
+        vtidentity = #{vtidentity,jdbcType=VARCHAR},
+      </if>
+      <if test="vtroom != null">
+        vtroom = #{vtroom,jdbcType=VARCHAR},
+      </if>
+      <if test="vtbetime != null">
+        vtbetime = #{vtbetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vtendtime != null">
+        vtendtime = #{vtendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vtdes != null">
+        vtdes = #{vtdes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cb.dt.domain.Visitor">
+    update dt_visitor
+    set vtname = #{vtname,jdbcType=VARCHAR},
+      vtphone = #{vtphone,jdbcType=VARCHAR},
+      vtsex = #{vtsex,jdbcType=INTEGER},
+      vtidentity = #{vtidentity,jdbcType=VARCHAR},
+      vtroom = #{vtroom,jdbcType=VARCHAR},
+      vtbetime = #{vtbetime,jdbcType=TIMESTAMP},
+      vtendtime = #{vtendtime,jdbcType=TIMESTAMP},
+      vtdes = #{vtdes,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryAllVisitor" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dt_visitor
+    <where>
+      <if test="vtname!= null and vtname!=''">
+        and vtname like concat("%",#{vtname},"%")
+      </if>
+      <if test="vtphone != null and vtphone!=''">
+        and vtphone like concat("%",#{vtphone},"%")
+      </if>
+      <if test="vtsex != null">
+        and vtsex=#{vtsex}
+      </if>
+      <if test="vtidentity != null and vtidentity!=''">
+        and vtidentity like concat("%",#{vtidentity},"%")
+      </if>
+      <if test="vtroom != null and vtroom!=''">
+        and vtroom like concat("%",#{vtroom},"%")
+      </if>
+      <if test="vtbetime != null and vtbetime!=''">
+        and vtbetime >= #{vtbetime}
+      </if>
+      <if test="vtendtime != null and vtendtime!=''">
+        and vtendtime <![CDATA[<=]]>#{vtendtime}
+      </if>
+      <if test="vtdes != null and vtdes!=''">
+        and vtdes like concat("%",#{vtdes},"%")
+      </if>
+    </where>
+    order by vtendtime
+  </select>
+</mapper>

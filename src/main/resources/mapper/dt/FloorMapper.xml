@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cb.dt.mapper.FloorMapper">
+  <resultMap id="BaseResultMap" type="com.cb.dt.domain.Floor">
+    <id column="dtid" jdbcType="INTEGER" property="dtid" />
+    <result column="dtsex" jdbcType="INTEGER" property="dtsex" />
+    <result column="dtnumber" jdbcType="INTEGER" property="dtnumber" />
+    <result column="dtsize" jdbcType="VARCHAR" property="dtsize" />
+    <result column="dtimg" jdbcType="VARCHAR" property="dtimg" />
+    <result column="dtname" jdbcType="VARCHAR" property="dtname" />
+    <result column="dtfloor" jdbcType="VARCHAR" property="dtfloor" />
+    <result column="dtno" jdbcType="VARCHAR" property="dtno" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dtid, dtsex, dtnumber, dtsize, dtimg, dtname, dtfloor, dtno
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dt_floor
+    where dtid = #{dtid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dt_floor
+    where dtid = #{dtid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cb.dt.domain.Floor">
+    insert into dt_floor (dtid, dtsex, dtnumber, 
+      dtsize, dtimg, dtname, 
+      dtfloor, dtno)
+    values (#{dtid,jdbcType=INTEGER}, #{dtsex,jdbcType=INTEGER}, #{dtnumber,jdbcType=INTEGER}, 
+      #{dtsize,jdbcType=VARCHAR}, #{dtimg,jdbcType=VARCHAR}, #{dtname,jdbcType=VARCHAR}, 
+      #{dtfloor,jdbcType=VARCHAR}, #{dtno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cb.dt.domain.Floor">
+    insert into dt_floor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dtid != null">
+        dtid,
+      </if>
+      <if test="dtsex != null">
+        dtsex,
+      </if>
+      <if test="dtnumber != null">
+        dtnumber,
+      </if>
+      <if test="dtsize != null">
+        dtsize,
+      </if>
+      <if test="dtimg != null">
+        dtimg,
+      </if>
+      <if test="dtname != null">
+        dtname,
+      </if>
+      <if test="dtfloor != null">
+        dtfloor,
+      </if>
+      <if test="dtno != null">
+        dtno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dtid != null">
+        #{dtid,jdbcType=INTEGER},
+      </if>
+      <if test="dtsex != null">
+        #{dtsex,jdbcType=INTEGER},
+      </if>
+      <if test="dtnumber != null">
+        #{dtnumber,jdbcType=INTEGER},
+      </if>
+      <if test="dtsize != null">
+        #{dtsize,jdbcType=VARCHAR},
+      </if>
+      <if test="dtimg != null">
+        #{dtimg,jdbcType=VARCHAR},
+      </if>
+      <if test="dtname != null">
+        #{dtname,jdbcType=VARCHAR},
+      </if>
+      <if test="dtfloor != null">
+        #{dtfloor,jdbcType=VARCHAR},
+      </if>
+      <if test="dtno != null">
+        #{dtno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cb.dt.domain.Floor">
+    update dt_floor
+    <set>
+      <if test="dtsex != null">
+        dtsex = #{dtsex,jdbcType=INTEGER},
+      </if>
+      <if test="dtnumber != null">
+        dtnumber = #{dtnumber,jdbcType=INTEGER},
+      </if>
+      <if test="dtsize != null">
+        dtsize = #{dtsize,jdbcType=VARCHAR},
+      </if>
+      <if test="dtimg != null">
+        dtimg = #{dtimg,jdbcType=VARCHAR},
+      </if>
+      <if test="dtname != null">
+        dtname = #{dtname,jdbcType=VARCHAR},
+      </if>
+      <if test="dtfloor != null">
+        dtfloor = #{dtfloor,jdbcType=VARCHAR},
+      </if>
+      <if test="dtno != null">
+        dtno = #{dtno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dtid = #{dtid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cb.dt.domain.Floor">
+    update dt_floor
+    set dtsex = #{dtsex,jdbcType=INTEGER},
+      dtnumber = #{dtnumber,jdbcType=INTEGER},
+      dtsize = #{dtsize,jdbcType=VARCHAR},
+      dtimg = #{dtimg,jdbcType=VARCHAR},
+      dtname = #{dtname,jdbcType=VARCHAR},
+      dtfloor = #{dtfloor,jdbcType=VARCHAR},
+      dtno = #{dtno,jdbcType=VARCHAR}
+    where dtid = #{dtid,jdbcType=INTEGER}
+  </update>
+
+<!--查询所有宿舍,以及模糊查询根据 性别，人数，宿舍大小，公寓栋，楼层，宿舍号-->
+  <select id="queryAllFloor" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from dt_floor
+    <where>
+      <if test="dtsex!=null and dtsex!=''">
+        and dtsex = #{dtsex}
+      </if>
+      <if test="dtnumber!=null and dtnumber!=''">
+        and dtnumber like concat("%",#{dtnumber},"%")
+      </if>
+      <if test="dtsize!=null and dtsize!=''">
+        and dtsize like concat("%",#{dtsize},"%")
+      </if>
+      <if test="dtname!=null and dtname!=''">
+        and dtname like concat("%",#{dtname},"%")
+      </if>
+      <if test="dtfloor!=null and dtfloor!=''">
+        and dtfloor like concat("%",#{dtfloor},"%")
+      </if>
+      <if test="dtno!=null and dtno!=''">
+        and dtno like concat("%",#{dtno},"%")
+      </if>
+    </where>
+  </select>
+</mapper>

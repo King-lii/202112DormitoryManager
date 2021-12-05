@@ -1,0 +1,71 @@
+package com.cb.dt.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 业务管理的路由控制器
+ * @author lx
+ *
+ */
+@Controller
+@RequestMapping("dt")
+public class DtController {
+
+	/**
+	 * 跳转到学生管理的页面
+	 */
+	@RequestMapping("customerManager")
+	public String toCustomerManager() {
+		return "business/customer/customerManager";
+	}
+
+	/**
+	 * 跳转到访问管理的页面
+	 */
+	@RequestMapping("visitorManager")
+	public String toVisitorManager() {
+		return "business/visitor/visitorManager";
+	}
+
+	/**
+	 * 跳转到宿舍管理的页面20211203
+	 */
+	@RequestMapping("floorManager")
+	public String toCarManager() {
+		return "business/floor/floorManager";
+	}
+	
+
+	/**
+	 * 跳转到车辆出租的页面
+	 */
+	@RequestMapping("toRentCarManager")
+	public String toRentCarManager() {
+		return "business/rent/rentCarManager";
+	}
+	
+	/**
+	 * 跳转到出租单管理的页面
+	 */
+	@RequestMapping("toRentManager")
+	public String toRentManager() {
+		return "business/rent/rentManager";
+	}
+	
+	/**
+	 * 跳转到汽车入库管理的页面
+	 */
+	@RequestMapping("toCheckCarManager")
+	public String toCheckCarManager() {
+		return "business/check/checkCarManager";
+	}
+	
+	/**
+	 * 跳转到检查单管理的页面
+	 */
+	@RequestMapping("toCheckManager")
+	public String toCheckManager() {
+		return "business/check/checkManager";
+	}
+}
