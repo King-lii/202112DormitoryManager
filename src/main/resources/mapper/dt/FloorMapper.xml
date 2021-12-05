@@ -132,7 +132,7 @@
     <include refid="Base_Column_List"></include>
     from dt_floor
     <where>
-      <if test="dtsex!=null and dtsex!=''">
+      <if test="dtsex!=null">
         and dtsex = #{dtsex}
       </if>
       <if test="dtnumber!=null and dtnumber!=''">

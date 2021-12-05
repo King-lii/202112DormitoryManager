@@ -114,11 +114,11 @@
 						</div>
 					</div>
 					<div class="layui-col-md3 layui-col-xs5">
-						<div class="layui-upload-list thumbBox mag0 magt3" id="carimgDiv">
+						<div class="layui-upload-list thumbBox mag0 magt3" id="floorimgDiv">
 							<!-- 显示上传的图片 -->
-							<img class="layui-upload-img thumbImg" id="showCarImg">
+							<img class="layui-upload-img thumbImg" id="showFloorImg">
 							<!-- 保存当前显示图片的地址 -->
-							<input type="hidden" name="carimg" id="carimg">
+							<input type="hidden" name="dtimg" id="dtimg">
 						</div>
 					</div>
 				</div>
@@ -156,8 +156,8 @@
 	
 	
 	<!-- 查看大图弹出的层 开始 -->
-	<div id="viewCarImageDiv" style="display: none;text-align: center;">
-		<img alt="宿舍图片" width="550" height="350" id="view_carimg">
+	<div id="viewFloorImageDiv" style="display: none;text-align: center;">
+		<img alt="宿舍图片" width="550" height="350" id="view_floorimg">
 	</div>
 	<!-- 查看大图弹出的层结束 -->
 	
@@ -188,7 +188,7 @@
 			      ,{field:'dtnumber', title:'容纳人数',align:'center',width:'120'}
 			      ,{field:'dtsize', title:'宿舍占地',align:'center',width:'150'}
 			      ,{field:'dtimg', title:'宿舍图片',align:'center',width:'120',templet:function(d){
-			      	return "<img width=40 height=30 src=${cb}/file/downloadShowFile.action?path="+d.carimg+" />";
+			      	return "<img width=40 height=30 src=${cb}/file/downloadShowFile.action?path="+d.dtimg+" />";
 			      	}}
 			      ,{field:'dtname', title:'公寓分栋',align:'center',width:'120'}
 			      ,{field:'dtfloor', title:'楼层',align:'center',width:'120'}
@@ -210,7 +210,7 @@
 			$("#doSearch").click(function(){
 				var params=$("#searchFrm").serialize();
 				tableIns.reload({
-					url:"${cb}/floor/loadAllFloor.action?"+params ,
+					url:"${cb}/floor/loadAllFloor.action?"+params,
 				    page:{
 				    	curr:1
 				    }
@@ -233,7 +233,7 @@
 			   var data = obj.data; //获得当前行数据
 			   var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 			  if(layEvent === 'del'){ //删除
-				  layer.confirm('真的删除【'+data.dtid+'】这个课程吗', function(index){
+				  layer.confirm('真的删除【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】这个宿舍吗', function(index){
 				       //向服务端发送删除指令
 				       $.post("${cb}/floor/deleteFloor.action",{dtid:data.dtid},function(res){
 				    	   layer.msg(res.msg);
@@ -244,7 +244,7 @@
 			   } else if(layEvent === 'edit'){ //编辑
 			      openUpdateFloor(data);
 			   }else if(layEvent==='viewImage'){
-				   showCarImage(data);
+				   showFloorImage(data);
 			   }
 			 });
 			
@@ -254,15 +254,15 @@
 			function openAddFloor(){
 				mainIndex=layer.open({
 					type:1,
-					title:'添加课程',
+					title:'添加宿舍',
 					content:$("#saveOrUpdateDiv"),
 					area:['1000px','450px'],
 					success:function(index){
 						//清空表单数据       
 						$("#dataFrm")[0].reset();
 						//设置默认图片
-						$("#showCarImg").attr("src","${cb}/file/downloadShowFile.action?path=images/defaultcarimage.jpg")
-						$("#carimg").val("images/defaultcarimage.jpg")
+						$("#showFloorImg").attr("src","${cb}/file/downloadShowFile.action?path=images/defaultimage.jpg")
+						$("#dtimg").val("images/defaultimage.jpg")
 						url="${cb}/floor/addFloor.action";
 						$("#dtid").removeAttr("readonly");
 					}
@@ -272,12 +272,12 @@
 			function openUpdateFloor(data){
 				mainIndex=layer.open({
 					type:1,
-					title:'修改课程',
+					title:'修改宿舍',
 					content:$("#saveOrUpdateDiv"),
 					area:['1000px','450px'],
 					success:function(index){
 						form.val("dataFrm",data);
-						$("#showCarImg").attr("src","${cb}/file/downloadShowFile.action?path="+data.carimg);
+						$("#showFloorImg").attr("src","${cb}/file/downloadShowFile.action?path="+data.dtimg+'&data='+data.dtid);
 						url="${cb}/floor/updateFloor.action";
 						$("#dtid").attr("readonly","readonly");
 					}
@@ -309,7 +309,7 @@
 			    		params+="&ids="+item.dtid;
 			    	}
 			    });
-			    layer.confirm('真的删除选中的这些课程吗', function(index){
+			    layer.confirm('真的删除选中的这些宿舍吗', function(index){
 				       //向服务端发送删除指令
 				       $.post("${cb}/floor/deleteBatchFloor.action",params,function(res){
 				    	   layer.msg(res.msg);
@@ -323,28 +323,28 @@
 			//上传图片
 			//上传课程图片
 		    upload.render({
-		        elem: '#carimgDiv',
+		        elem: '#floorimgDiv',
 		        url: '${cb}/file/uploadFile.action',
 		        method : "post",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
 		        acceptMime:'images/*',
 		        field:"mf",
 		        done: function(res, index, upload){
-		            $('#showCarImg').attr('src',"${cb}/file/downloadShowFile.action?path="+res.data.src);
-		            $('#carimg').val(res.data.src);
-		            $('#carimgDiv').css("background","#fff");
+		            $('#showFloorImg').attr('src',"${cb}/file/downloadShowFile.action?path="+res.data.src);
+		            $('#dtimg').val(res.data.src);
+		            $('#floorimgDiv').css("background","#fff");
 		        }
 		    });
 			
 			//查看大图
-			function showCarImage(data){
+			function showFloorImage(data){
 				
 				mainIndex=layer.open({
 					type:1,
-					title:"【"+data.dtid+'】的课程图片',
-					content:$("#viewCarImageDiv"),
+					title:"【"+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】的宿舍图片',
+					content:$("#viewFloorImageDiv"),
 					area:['600px','400px'],
 					success:function(index){
-						$("#view_carimg").attr("src","${cb}/file/downloadShowFile.action?path="+data.carimg);
+						$("#view_floorimg").attr("src","${cb}/file/downloadShowFile.action?path="+data.dtimg);
 					}
 				});
 			}

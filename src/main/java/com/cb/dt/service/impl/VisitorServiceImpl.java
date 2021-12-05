@@ -35,7 +35,6 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public void updateVisitor(VisitorVo visitorVo) {
-        System.out.println("VisitorServiceImpl========================"+visitorVo.toString());
         this.visitorMapper.updateByPrimaryKeySelective(visitorVo);
     }
 

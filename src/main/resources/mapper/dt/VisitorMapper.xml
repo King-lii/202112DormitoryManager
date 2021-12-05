@@ -159,10 +159,10 @@
       <if test="vtroom != null and vtroom!=''">
         and vtroom like concat("%",#{vtroom},"%")
       </if>
-      <if test="vtbetime != null and vtbetime!=''">
+      <if test="vtbetime != null ">
         and vtbetime >= #{vtbetime}
       </if>
-      <if test="vtendtime != null and vtendtime!=''">
+      <if test="vtendtime != null ">
         and vtendtime <![CDATA[<=]]>#{vtendtime}
       </if>
       <if test="vtdes != null and vtdes!=''">

@@ -51,13 +51,13 @@ public class FloorController {
     }
 
     /**
-     * 修改车辆
+     * 修改宿舍
      */
     @RequestMapping("updateFloor")
     public ResultObj updateFloor(FloorVo floorVo) {
         try {
-            String carimg = floorVo.getDtimg();
-            if(carimg.endsWith(SysConstast.FILE_UPLOAD_TEMP)) {
+            String floorimg = floorVo.getDtimg();
+            if(floorimg.endsWith(SysConstast.FILE_UPLOAD_TEMP)) {
                 String filePath=AppFileUtils.updateFileName(floorVo.getDtimg(),SysConstast.FILE_UPLOAD_TEMP);
                 floorVo.setDtimg(filePath);
                 //把原来的删除

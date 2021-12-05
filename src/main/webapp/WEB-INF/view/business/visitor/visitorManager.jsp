@@ -233,7 +233,7 @@
 			//模糊查询
 			$("#doSearch").click(function(){
 				var params=$("#searchFrm").serialize();
-				console.log("测试传参"+params)
+				alert(params)
 				tableIns.reload({
 					url:"${cb}/visitor/loadAllVisitor.action?"+params ,
 				    page:{
@@ -277,7 +277,7 @@
 			function openAddVisitor(){
 				mainIndex=layer.open({
 					type:1,
-					title:'添加学生',
+					title:'添加参观者',
 					content:$("#saveOrUpdateDiv"),
 					area:['800px','400px'],
 					success:function(index){
@@ -327,7 +327,7 @@
 			    		params+="&ids="+item.id;
 			    	}
 			    });
-			    layer.confirm('真的删除选中的这些学生吗', function(index){
+			    layer.confirm('真的删除选中的这些拜访者吗', function(index){
 				       //向服务端发送删除指令
 				       $.post("${cb}/visitor/deleteBatchVisitor.action",params,function(res){
 				    	   layer.msg(res.msg);
