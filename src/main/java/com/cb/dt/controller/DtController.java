@@ -29,20 +29,20 @@ public class DtController {
 	}
 
 	/**
-	 * 跳转到宿舍管理的页面20211203
+	 * 跳转到宿舍管理的页面
 	 */
 	@RequestMapping("floorManager")
-	public String toCarManager() {
+	public String toFloorManager() {
 		return "business/floor/floorManager";
 	}
 	
 
 	/**
-	 * 跳转到车辆出租的页面
+	 * 跳转到宿舍维修
 	 */
-	@RequestMapping("toRentCarManager")
-	public String toRentCarManager() {
-		return "business/rent/rentCarManager";
+	@RequestMapping("repairManager")
+	public String toRepairManager() {
+		return "business/repair/repairManager";
 	}
 	
 	/**

@@ -69,7 +69,8 @@ public interface SysConstast {
 	 * 默认图片地址
 	 */
 	Object DEFAULT_CAR_IMG = "images/defaultimage.jpg";
-	
+	Object DEFAULT_REPAIR_IMG = "images/defaultrepairimage.jpg";
+
 	/**
 	 * 单号的前缀
 	 */
