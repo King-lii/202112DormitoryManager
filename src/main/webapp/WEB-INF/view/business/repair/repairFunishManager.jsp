@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>维修处理</title>
+	<title>维修完成</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -70,11 +70,9 @@
 				 <div class="layui-input-inline">
 					 <select name="restate">
 						 <option value="" selected>--请选择--</option>
-						 <option value="1">待处理</option>
 						 <option value="2" >处理中</option>
 						 <option value="3">已完成</option>
 						 <option value="4">未完成</option>
-						 <option value="5">已取消</option>
 					 </select>
 				 </div>
 			 </div>
@@ -95,7 +93,8 @@
 	<table class="layui-hide" id="repairTable" lay-filter="repairTable"></table>
 
 	<div  id="repairBar" style="display: none;">
-	  <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="accept" id="accept">接受维修</a>
+	  <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="funishi" id="funish">维修完成</a>
+	  <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="fail" id="fail">维修未完成</a>
 	  <a class="layui-btn layui-btn-xs" lay-event="viewImage">查看大图</a>
 	</div>
 	<!-- 数据表格结束 -->
@@ -127,7 +126,7 @@
 			//渲染数据表格
 			 tableIns=table.render({
 				 elem: '#repairTable'   //渲染的目标对象
-			    ,url:'${cb}/repair/loadAllResolveRepair.action' //数据接口
+			    ,url:'${cb}/repair/loadAllRepair.action' //数据接口
 			    ,title: '维修处理表'//数据导出来的标题
 			    ,toolbar:"#repairToolBar"   //表格的工具条
 			    ,height:'full-220'
@@ -147,13 +146,11 @@
 					}}
 				  ,{field:'reduty', title:'责任人',align:'center',width:'120'}
 			      ,{field:'restate', title:'维修状态',align:'center',width:'100',templet:function(d){
-			      	if(d.restate=='1'){return '<font color=blue>待处理</font>'}
-			      	else if (d.restate=='2'){return '<font color=orange>处理中</font>'}
+			      	if (d.restate=='2'){return '<font color=orange>处理中</font>'}
 			      	else if (d.restate=='3'){return '<font color=green>已完成</font>'}
 			      	else if (d.restate=='4'){return '<font color=red>未完成</font>'}
-			      	else if (d.restate=='5'){return '<font color=red>已取消</font>'}
 			      }}
-			      ,{fixed: 'right', title:'操作', toolbar: '#repairBar', width:220,align:'center'}
+			      ,{fixed: 'right', title:'操作', toolbar: '#repairBar', width:280,align:'center'}
 			    ]],
 			    done:function(data,curr,count){
 			    	//不是第一页时如果当前返回的的数据为0那么就返回上一页
@@ -170,7 +167,7 @@
 			$("#doSearch").click(function(){
 				var params=$("#searchFrm").serialize();
 				tableIns.reload({
-					url:"${cb}/repair/loadAllResolveRepair.action?"+params,
+					url:"${cb}/repair/loadAllRepair.action?"+params,
 				    page:{
 				    	curr:1
 				    }
@@ -185,10 +182,10 @@
 		   table.on('tool(repairTable)', function(obj){
 			   var data = obj.data; //获得当前行数据
 			   var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-			  if(layEvent === 'accept'){ //接受
-				  layer.confirm('接受【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修记录', function(index){
+			  if(layEvent === 'funish'){ //完成
+				  layer.confirm('【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修已经完成？', function(index){
 				       //向服务端发送取消指令
-				       $.post("${cb}/repair/acceptRepair.action",{reid:data.reid,restate:2},function(res){
+				       $.post("${cb}/repair/acceptRepair.action",{reid:data.reid,restate:3},function(res){
 				    	   layer.msg(res.msg);
 				    	    //刷新数据 表格
 							tableIns.reload();
@@ -196,7 +193,16 @@
 				     });
 			   }else if(layEvent==='viewImage'){
 				   showRepairImage(data);
-			   }
+			   }else if (layEvent==='fail'){//未完成
+				  layer.confirm('【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修不能完成？', function(index){
+					  //向服务端发送取消指令
+					  $.post("${cb}/repair/acceptRepair.action",{reid:data.reid,restate:4},function(res){
+						  layer.msg(res.msg);
+						  //刷新数据 表格
+						  tableIns.reload();
+					  })
+				  });
+			  }
 			 });
 
 			var url;

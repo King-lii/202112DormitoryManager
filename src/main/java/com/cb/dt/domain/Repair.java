@@ -25,6 +25,16 @@ public class Repair {
 
     private Integer restate;
 
+    private Integer uid;
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
     public Integer getReid() {
         return reid;
     }
@@ -104,4 +114,6 @@ public class Repair {
     public void setRestate(Integer restate) {
         this.restate = restate;
     }
+
+
 }

@@ -10,11 +10,11 @@ import com.cb.sys.utils.DataGridView;
  */
 public interface RepairService {
     /**
-     * 查询所有维修
+     * 维修上报——查询所有维修
      */
     public DataGridView queryAllRepair(RepairVo repairVo);
     /**
-     * 添加维修
+     * 维修上报——添加维修
      */
     public void addRepair(RepairVo repairVo);
 
@@ -25,7 +25,7 @@ public interface RepairService {
     public void cancelRepair(RepairVo repairVo);
 
     /**
-     * 查询所有维修
+     * 维修处理——查询当前维修师傅所有维修记录
      */
     public DataGridView queryDtnameRepair(RepairVo repairVo);
 

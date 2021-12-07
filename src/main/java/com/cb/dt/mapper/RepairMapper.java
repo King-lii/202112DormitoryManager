@@ -16,10 +16,12 @@ public interface RepairMapper {
     int updateByPrimaryKeySelective(Repair record);
 
     int updateByPrimaryKey(Repair record);
-    //查询所有信息
+    //维修上报——查询所有信息
     List<Repair> queryAllRepair(Repair repair);
-    //查询当前维修师傅所有维修记录
+    //维修处理——查询当前维修师傅所有维修记录
     List<Repair> queryDtnameRepair(Repair repair);
-    //查询当前用户是否为超级管理员
+    //判断当前用户是否为超级管理员
     int queryManagerById(int userid);
+
+    List<Repair> queryAllFunishRepair(Repair repair);
 }

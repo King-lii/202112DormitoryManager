@@ -14,7 +14,7 @@
     <result column="restate" jdbcType="INTEGER" property="restate" />
   </resultMap>
   <sql id="Base_Column_List">
-    reid, dtname, dtfloor, dtno, retime, rephone, redescribe, reimg, reduty, restate
+    reid, dtname, dtfloor, dtno, retime, rephone, redescribe, reimg, reduty, restate,uid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -69,6 +69,9 @@
       <if test="restate != null">
         restate,
       </if>
+      <if test="uid != null">
+        uid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="reid != null">
@@ -100,6 +103,9 @@
       </if>
       <if test="restate != null">
         #{restate,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +184,9 @@
         <!-- and logintime &lt; = #{endTime} -->
         and retime  <![CDATA[<=]]> #{endTime}
       </if>
+      <if test="uid!=null">
+        and uid =#{uid}
+      </if>
     </where>
     order by retime desc
   </select>
@@ -188,15 +197,43 @@
     <include refid="Base_Column_List"></include>
     from dt_repair
     <where>
+      <if test="dtname!=null and dtname!=''">
+        and dtname like concat("%",#{dtname},"%")
+      </if>
+      <if test="dtfloor!=null and dtfloor!=''">
+        and dtfloor like concat("%",#{dtfloor},"%")
+      </if>
+      <if test="dtno!=null and dtno!=''">
+        and dtno like concat("%",#{dtno},"%")
+      </if>
+      <if test="restate!=null">
+        and restate = #{restate}
+      </if>
+      <if test="startTime!=null">
+        and retime >=#{startTime}
+      </if>
+      <if test="endTime!=null">
+        <!-- and logintime &lt; = #{endTime} -->
+        and retime  <![CDATA[<=]]> #{endTime}
+      </if>
       <if test="reduty!=null and reduty!=''">
-        and reduty =#{reduty} or reduty='无'
+        and reduty in (#{reduty},'无')
       </if>
     </where>
     order by retime desc
   </select>
 
-<!--  查询是否是超级管理员-->
+<!-- 工具查询——查询是否是超级管理员-->
   <select id="queryManagerById" resultType="int">
     select count(*) from sys_role_user where uid =#{userid} and rid = 1
+  </select>
+
+  <!--查询所有维修记录,以及模糊查询-->
+  <select id="queryAllFunishRepair" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from dt_repair
+    where restate in (2,3,4)
+    order by retime desc
   </select>
 </mapper>

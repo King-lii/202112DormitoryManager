@@ -54,11 +54,11 @@ public class DtController {
 	}
 	
 	/**
-	 * 跳转到汽车入库管理的页面
+	 * 跳转到维修完成的页面
 	 */
-	@RequestMapping("toCheckCarManager")
+	@RequestMapping("repairFunishManager")
 	public String toCheckCarManager() {
-		return "business/check/checkCarManager";
+		return "business/repair/repairFunishManager";
 	}
 	
 	/**
