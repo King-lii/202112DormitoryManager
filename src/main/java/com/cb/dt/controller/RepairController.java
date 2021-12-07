@@ -1,11 +1,14 @@
 package com.cb.dt.controller;
 
+import com.cb.dt.domain.Repair;
 import com.cb.dt.service.RepairService;
 import com.cb.dt.vo.RepairVo;
 import com.cb.sys.constast.SysConstast;
+import com.cb.sys.domain.User;
 import com.cb.sys.utils.AppFileUtils;
 import com.cb.sys.utils.DataGridView;
 import com.cb.sys.utils.ResultObj;
+import com.cb.sys.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +32,14 @@ public class RepairController {
      */
     @RequestMapping("loadAllRepair")
     public DataGridView loadAllRepair(RepairVo repairVo) {
-        return this.repairService.queryAllRepair(repairVo);
+        User user = (User)WebUtils.getHttpSession().getAttribute("user");
+        //queryManagerById查询出结果则为超级管理员可以显示所有数据，否则根据责任人名字查询
+        if (repairService.queryManagerById(user.getUserid())==1){
+            return this.repairService.queryAllRepair(repairVo);
+        }else{
+            repairVo.setReduty(user.getRealname());
+            return this.repairService.queryDtnameRepair(repairVo);
+        }
     }
     @RequestMapping("addRepair")
     public ResultObj addRepair(RepairVo repairVo){
@@ -45,6 +55,35 @@ public class RepairController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultObj.ADD_ERROR;
+        }
+    }
+
+    @RequestMapping("cancelRepair")
+    public ResultObj cancelRepair(RepairVo repairVo) {
+        try {
+            this.repairService.cancelRepair(repairVo);
+            return ResultObj.CANCEL_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.CANCEL_ERROR;
+        }
+    }
+
+    /**
+     * 接受当前状态工单并将责任人付给他
+     * @param repairVo
+     * @return
+     */
+    @RequestMapping("acceptRepair")
+    public ResultObj acceptRepair(RepairVo repairVo){
+        try {
+            User user = (User)WebUtils.getHttpSession().getAttribute("user");
+            repairVo.setReduty(user.getRealname());
+            this.repairService.cancelRepair(repairVo);
+            return ResultObj.CANCEL_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.CANCEL_ERROR;
         }
     }
 }

@@ -48,7 +48,7 @@ public class VisitorController {
 	@RequestMapping("updateVisitor")
 	public ResultObj updateVisitor(VisitorVo visitorVo) {
 		try {
-			System.out.println(visitorVo.toString());
+
 			this.visitorService.updateVisitor(visitorVo);
 			return ResultObj.UPDATE_SUCCESS;
 		} catch (Exception e) {

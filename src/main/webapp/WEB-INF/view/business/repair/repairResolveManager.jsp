@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>维修上报</title>
+	<title>维修处理</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -42,22 +42,17 @@
 				</div>
 			</div>
 			<div class="layui-inline">
-				<label class="layui-form-label">维修状态:</label>
+				<label class="layui-form-label">责任人:</label>
 				<div class="layui-input-inline">
-					<input type="radio" name="restate" value="1" title="待处理">
-					<input type="radio" name="restate" value="2" title="处理中">
+					<input type="text" name="reduty"  autocomplete="off" class="layui-input">
 				</div>
 			</div>
+
 		</div>
 
 		 <div class="layui-form-item">
 
-			 <div class="layui-inline">
-				 <label class="layui-form-label">责任人:</label>
-				 <div class="layui-input-inline">
-					 <input type="text" name="reduty"  autocomplete="off" class="layui-input">
-				 </div>
-			 </div>
+
 			 <div class="layui-inline">
 				 <label class="layui-form-label">开始时间:</label>
 				 <div class="layui-input-inline">
@@ -70,12 +65,27 @@
 					 <input type="text" name="endTime"  id="endTime" readonly="readonly" autocomplete="off" class="layui-input">
 				 </div>
 			 </div>
+			 <div class="layui-inline">
+				 <label class="layui-form-label">维修状态:</label>
+				 <div class="layui-input-inline">
+					 <select name="restate">
+						 <option value="" selected>--请选择--</option>
+						 <option value="1">待处理</option>
+						 <option value="2" >处理中</option>
+						 <option value="3">已完成</option>
+						 <option value="4">未完成</option>
+						 <option value="5">已取消</option>
+					 </select>
+				 </div>
+			 </div>
+
+			 <div class="layui-inline" >
+				 <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch">查询</button>
+				 <button type="reset" class="layui-btn layui-btn-warm  layui-icon layui-icon-refresh">重置</button>
+			 </div>
 		 </div>
 		 <div  class="layui-form-item" style="text-align: center;">
-		   <div class="layui-input-block" >
-		      <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch">查询</button>
-		      <button type="reset" class="layui-btn layui-btn-warm  layui-icon layui-icon-refresh">重置</button>
-		    </div>
+
 		 </div>
 	</form>
 	
@@ -83,78 +93,12 @@
 	
 	<!-- 数据表格开始 -->
 	<table class="layui-hide" id="repairTable" lay-filter="repairTable"></table>
-	<div style="display: none;" id="repairToolBar">
-	   <button type="button" class="layui-btn layui-btn-sm" lay-event="add">维修上报</button>
-	</div>
+
 	<div  id="repairBar" style="display: none;">
-
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="cancel" id="cancel">取消上报</a>
-
+	  <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="accept" id="accept">接受维修</a>
 	  <a class="layui-btn layui-btn-xs" lay-event="viewImage">查看大图</a>
 	</div>
 	<!-- 数据表格结束 -->
-
-	<!-- 添加和修改的弹出层开始 -->
-	<div style="display: none;padding: 20px" id="saveOrUpdateDiv" >
-		<form class="layui-form layui-row layui-col-space10"  lay-filter="dataFrm" id="dataFrm">
-			<div class="layui-col-md12 layui-col-xs12">
-				<div class="layui-row layui-col-space10">
-					<div class="layui-col-md9 layui-col-xs7">
-
-						<div class="layui-form-item">
-							<label class="layui-form-label">联系电话:</label>
-							<div class="layui-input-block">
-								<input type="text" name="rephone" class="layui-input" lay-verify="required" placeholder="请输入联系电话">
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">问题描述:</label>
-							<div class="layui-input-block">
-								<input type="text" name="redescribe" class="layui-input" lay-verify="required" placeholder="请输入问题描述">
-							</div>
-						</div>
-					</div>
-					<div class="layui-col-md3 layui-col-xs5">
-						<div class="layui-upload-list thumbBox mag0 magt3" id="repairimgDiv">
-							<!-- 显示上传的图片 -->
-							<img class="layui-upload-img thumbImg" id="showRepairImg">
-							<!-- 保存当前显示图片的地址 -->
-							<input type="hidden" name="reimg" id="reimg">
-						</div>
-					</div>
-				</div>
-				<div class="layui-form-item magb0">
-					<div class="layui-inline">
-						<label class="layui-form-label">公寓分栋:</label>
-							<div class="layui-input-block">
-								<input type="text" name="dtname" class="layui-input" lay-verify="required|number" placeholder="请输入公寓分栋">
-							</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">楼层:</label>
-							<div class="layui-input-block">
-								<input type="text" name="dtfloor" class="layui-input" lay-verify="required|number" placeholder="请输入楼层">
-							</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">宿舍号:</label>
-							<div class="layui-input-block">
-								<input type="text" name="dtno" class="layui-input" lay-verify="required|number" placeholder="请输入宿舍号">
-							</div>
-					</div>
-				</div>
-				<div class="layui-form-item magb0" style="text-align: center;">
-					    <div class="layui-input-block">
-					      <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" lay-filter="doSubmit" lay-submit="">提交</button>
-					      <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
-					    </div>
-				  	</div>
-			</div>
-		</form>
-
-	</div>
-	<!-- 添加和修改的弹出层结束 -->
-
 
 	<!-- 查看大图弹出的层 开始 -->
 	<div id="viewRepairImageDiv" style="display: none;text-align: center;">
@@ -184,7 +128,7 @@
 			 tableIns=table.render({
 				 elem: '#repairTable'   //渲染的目标对象
 			    ,url:'${cb}/repair/loadAllRepair.action' //数据接口
-			    ,title: '宿舍数据表'//数据导出来的标题
+			    ,title: '维修处理表'//数据导出来的标题
 			    ,toolbar:"#repairToolBar"   //表格的工具条
 			    ,height:'full-220'
 			    ,cellMinWidth:100 //设置列的最小默认宽度
@@ -235,20 +179,16 @@
 
 			//监听头部工具栏事件
 			table.on("toolbar(repairTable)",function(obj){
-				 switch(obj.event){
-				    case 'add':
-				      openAddRepair();
-				    break;
-				  };
+
 			})
 			//监听行工具事件
 		   table.on('tool(repairTable)', function(obj){
 			   var data = obj.data; //获得当前行数据
 			   var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-			  if(layEvent === 'cancel'){ //取消
-				  layer.confirm('真的取消【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修记录吗', function(index){
+			  if(layEvent === 'accept'){ //接受
+				  layer.confirm('接受【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修记录', function(index){
 				       //向服务端发送取消指令
-				       $.post("${cb}/repair/cancelRepair.action",{reid:data.reid,restate:5},function(res){
+				       $.post("${cb}/repair/acceptRepair.action",{reid:data.reid,restate:2},function(res){
 				    	   layer.msg(res.msg);
 				    	    //刷新数据 表格
 							tableIns.reload();
@@ -261,24 +201,6 @@
 
 			var url;
 			var mainIndex;
-			//打开添加页面
-			function openAddRepair(){
-				mainIndex=layer.open({
-					type:1,
-					title:'添加宿舍',
-					content:$("#saveOrUpdateDiv"),
-					area:['1000px','450px'],
-					success:function(index){
-						//清空表单数据
-						$("#dataFrm")[0].reset();
-						//设置默认图片
-						$("#showRepairImg").attr("src","${cb}/file/downloadShowFile.action?path=images/defaultrepairimage.jpg")
-						$("#reimg").val("images/defaultrepairimage.jpg")
-						url="${cb}/repair/addRepair.action";
-						$("#reid").removeAttr("readonly");
-					}
-				});
-			}
 
 			//保存
 			form.on("submit(doSubmit)",function(obj){
@@ -293,21 +215,6 @@
 				})
 			});
 
-			//上传图片
-			//上传课程图片
-		    upload.render({
-		        elem: '#repairimgDiv',
-		        url: '${cb}/file/uploadFile.action',
-		        method : "post",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
-		        acceptMime:'images/*',
-		        field:"mf",
-		        done: function(res, index, upload){
-		            $('#showRepairImg').attr('src',"${cb}/file/downloadShowFile.action?path="+res.data.src);
-		            $('#reimg').val(res.data.src);
-		            $('#repairimgDiv').css("background","#fff");
-		        }
-		    });
-			
 			//查看大图
 			function showRepairImage(data){
 				

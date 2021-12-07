@@ -31,4 +31,21 @@ public class RepairServiceImpl implements RepairService {
     public void addRepair(RepairVo repairVo) {
         this.repairMapper.insertSelective(repairVo);
     }
+
+    @Override
+    public void cancelRepair(RepairVo repairVo) {
+        this.repairMapper.updateByPrimaryKeySelective(repairVo);
+    }
+
+    @Override
+    public DataGridView queryDtnameRepair(RepairVo repairVo) {
+        Page<Object> page = PageHelper.startPage(repairVo.getPage(),repairVo.getLimit());
+        List<Repair> data = this.repairMapper.queryDtnameRepair(repairVo);
+        return new DataGridView(page.getTotal(), data);
+    }
+
+    @Override
+    public int queryManagerById(int userid) {
+        return this.repairMapper.queryManagerById(userid);
+    }
 }

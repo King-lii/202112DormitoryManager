@@ -18,4 +18,8 @@ public interface RepairMapper {
     int updateByPrimaryKey(Repair record);
     //查询所有信息
     List<Repair> queryAllRepair(Repair repair);
+    //查询当前维修师傅所有维修记录
+    List<Repair> queryDtnameRepair(Repair repair);
+    //查询当前用户是否为超级管理员
+    int queryManagerById(int userid);
 }

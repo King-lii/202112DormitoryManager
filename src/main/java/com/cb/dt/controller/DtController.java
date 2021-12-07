@@ -46,11 +46,11 @@ public class DtController {
 	}
 	
 	/**
-	 * 跳转到出租单管理的页面
+	 * 跳转到维修处理界面
 	 */
-	@RequestMapping("toRentManager")
+	@RequestMapping("repairResolveManager")
 	public String toRentManager() {
-		return "business/rent/rentManager";
+		return "business/repair/repairResolveManager";
 	}
 	
 	/**

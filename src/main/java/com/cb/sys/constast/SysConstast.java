@@ -35,7 +35,10 @@ public interface SysConstast {
 	
 	String UPDATE_SUCCESS="更新成功";
 	String UPDATE_ERROR="更新失败";
-	
+
+	String CANCEL_SUCCESS="取消成功";
+	String CANCEL_ERROR="取消失败";
+
 	String DELETE_SUCCESS="删除成功";
 	String DELETE_ERROR="删除失败";
 	

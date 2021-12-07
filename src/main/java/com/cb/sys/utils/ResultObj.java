@@ -3,8 +3,8 @@ package com.cb.sys.utils;
 import com.cb.sys.constast.SysConstast;
 
 public class ResultObj {
-	
-	
+
+
 	private Integer code=0;
 	private String msg;
 	
@@ -23,7 +23,16 @@ public class ResultObj {
 	/**
 	 * 更新失败
 	 */
-	public static final ResultObj UPDATE_ERROR=new ResultObj(SysConstast.CODE_ERROR, SysConstast.UPDATE_ERROR); 
+	public static final ResultObj UPDATE_ERROR=new ResultObj(SysConstast.CODE_ERROR, SysConstast.UPDATE_ERROR);
+	/**
+	 * 取消成功
+	 */
+	public static final ResultObj CANCEL_SUCCESS=new ResultObj(SysConstast.CODE_SUCCESS, SysConstast.CANCEL_SUCCESS);
+	/**
+	 * 取消失败
+	 */
+	public static final ResultObj CANCEL_ERROR=new ResultObj(SysConstast.CODE_ERROR, SysConstast.CANCEL_ERROR);
+
 	/**
 	 * 删除成功
 	 */

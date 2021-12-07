@@ -181,4 +181,22 @@
     </where>
     order by retime desc
   </select>
+
+  <!--查询当前维修师傅所有维修记录-->
+  <select id="queryDtnameRepair" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from dt_repair
+    <where>
+      <if test="reduty!=null and reduty!=''">
+        and reduty =#{reduty} or reduty='无'
+      </if>
+    </where>
+    order by retime desc
+  </select>
+
+<!--  查询是否是超级管理员-->
+  <select id="queryManagerById" resultType="int">
+    select count(*) from sys_role_user where uid =#{userid} and rid = 1
+  </select>
 </mapper>
