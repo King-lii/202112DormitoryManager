@@ -22,6 +22,8 @@ public interface RepairMapper {
     List<Repair> queryDtnameRepair(Repair repair);
     //判断当前用户是否为超级管理员
     int queryManagerById(int userid);
-
+    //维修完成——查询当前维修师傅的2处理中，3已完成，4未完成
     List<Repair> queryAllFunishRepair(Repair repair);
+    //维修记录管理——查询当前维修师傅的3已完成工单
+    List<Repair> queryAllLOGRepair(Repair repair);
 }

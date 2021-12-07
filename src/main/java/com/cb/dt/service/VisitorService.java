@@ -1,7 +1,5 @@
 package com.cb.dt.service;
 
-import com.cb.dt.domain.Customer;
-import com.cb.dt.vo.CustomerVo;
 import com.cb.dt.vo.VisitorVo;
 import com.cb.sys.utils.DataGridView;
 

@@ -233,7 +233,62 @@
     select
     <include refid="Base_Column_List"></include>
     from dt_repair
-    where restate in (2,3,4)
+    <where>
+      <if test="dtname!=null and dtname!=''">
+        and dtname like concat("%",#{dtname},"%")
+      </if>
+      <if test="dtfloor!=null and dtfloor!=''">
+        and dtfloor like concat("%",#{dtfloor},"%")
+      </if>
+      <if test="dtno!=null and dtno!=''">
+        and dtno like concat("%",#{dtno},"%")
+      </if>
+      <if test="restate!=null">
+        and restate =#{restate}
+      </if>
+      <if test="startTime!=null">
+        and retime >=#{startTime}
+      </if>
+      <if test="endTime!=null">
+        <!-- and logintime &lt; = #{endTime} -->
+        and retime  <![CDATA[<=]]> #{endTime}
+      </if>
+      <if test="reduty!=null and reduty!=''">
+        and reduty = #{reduty}
+      </if>
+    </where>
+    order by retime desc
+  </select>
+
+  <!--查询所有维修记录,以及模糊查询-->
+  <select id="queryAllLOGRepair" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from dt_repair
+    <where>
+      <if test="dtname!=null and dtname!=''">
+        and dtname like concat("%",#{dtname},"%")
+      </if>
+      <if test="dtfloor!=null and dtfloor!=''">
+        and dtfloor like concat("%",#{dtfloor},"%")
+      </if>
+      <if test="dtno!=null and dtno!=''">
+        and dtno like concat("%",#{dtno},"%")
+      </if>
+      <if test="restate!=null">
+        and restate in (#{restate},3,4)
+      </if>
+      <if test="startTime!=null">
+        and retime >=#{startTime}
+      </if>
+      <if test="endTime!=null">
+        <!-- and logintime &lt; = #{endTime} -->
+        and retime  <![CDATA[<=]]> #{endTime}
+      </if>
+      <if test="reduty!=null and reduty!=''">
+        and reduty = #{reduty}
+      </if>
+    </where>
     order by retime desc
   </select>
 </mapper>

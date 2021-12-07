@@ -24,6 +24,16 @@ public class RepairVo extends Repair {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
+    private int reids[];
+
+    public int[] getReids() {
+        return reids;
+    }
+
+    public void setReids(int[] reids) {
+        this.reids = reids;
+    }
+
     public Date getStartTime() {
         return startTime;
     }

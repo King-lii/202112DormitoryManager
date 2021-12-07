@@ -62,10 +62,10 @@ public class DtController {
 	}
 	
 	/**
-	 * 跳转到检查单管理的页面
+	 * 跳转到维修记录管理
 	 */
-	@RequestMapping("toCheckManager")
+	@RequestMapping("repairLogManager")
 	public String toCheckManager() {
-		return "business/check/checkManager";
+		return "business/repair/repairLogManager";
 	}
 }

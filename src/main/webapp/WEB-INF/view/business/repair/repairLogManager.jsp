@@ -70,7 +70,6 @@
 				 <div class="layui-input-inline">
 					 <select name="restate">
 						 <option value="" selected>--请选择--</option>
-						 <option value="2" >处理中</option>
 						 <option value="3">已完成</option>
 						 <option value="4">未完成</option>
 					 </select>
@@ -91,10 +90,11 @@
 	
 	<!-- 数据表格开始 -->
 	<table class="layui-hide" id="repairTable" lay-filter="repairTable"></table>
-
+	<div style="display: none;" id="repairToolBar">
+		<button type="button" class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteBatch">批量删除</button>
+	</div>
 	<div  id="repairBar" style="display: none;">
-	  <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="funish" id="funish">维修完成</a>
-	  <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="fail" id="fail">维修未完成</a>
+	  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" id="del">删除</a>
 	  <a class="layui-btn layui-btn-xs" lay-event="viewImage">查看大图</a>
 	</div>
 	<!-- 数据表格结束 -->
@@ -126,7 +126,7 @@
 			//渲染数据表格
 			 tableIns=table.render({
 				 elem: '#repairTable'   //渲染的目标对象
-			    ,url:'${cb}/repair/loadAllFunishRepair.action' //数据接口
+			    ,url:'${cb}/repair/loadAllLogRepair.action' //数据接口
 			    ,title: '维修处理表'//数据导出来的标题
 			    ,toolbar:"#repairToolBar"   //表格的工具条
 			    ,height:'full-220'
@@ -169,7 +169,7 @@
 			$("#doSearch").click(function(){
 				var params=$("#searchFrm").serialize();
 				tableIns.reload({
-					url:"${cb}/repair/loadAllFunishRepair.action?"+params,
+					url:"${cb}/repair/loadAllLogRepair.action?"+params,
 				    page:{
 				    	curr:1
 				    }
@@ -178,16 +178,20 @@
 
 			//监听头部工具栏事件
 			table.on("toolbar(repairTable)",function(obj){
-
+				switch(obj.event){
+					case 'deleteBatch':
+						deleteBatch();
+						break;
+				};
 			})
 			//监听行工具事件
 		   table.on('tool(repairTable)', function(obj){
 			   var data = obj.data; //获得当前行数据
 			   var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-			  if(layEvent === 'funish'){ //完成
-				  layer.confirm('【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修已经完成？', function(index){
+			  if(layEvent === 'del'){ //删除
+				  layer.confirm('真的删除【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修记录？', function(index){
 				       //向服务端发送取消指令
-				       $.post("${cb}/repair/acceptRepair.action",{reid:data.reid,restate:3},function(res){
+				       $.post("${cb}/repair/deleteRepair.action",{reid:data.reid},function(res){
 				    	   layer.msg(res.msg);
 				    	    //刷新数据 表格
 							tableIns.reload();
@@ -195,16 +199,7 @@
 				     });
 			   }else if(layEvent==='viewImage'){
 				   showRepairImage(data);
-			   }else if (layEvent==='fail'){//未完成
-				  layer.confirm('【'+data.dtname+'-'+data.dtfloor+'-'+data.dtno+'】宿舍本次报修不能完成？', function(index){
-					  //向服务端发送取消指令
-					  $.post("${cb}/repair/acceptRepair.action",{reid:data.reid,restate:4},function(res){
-						  layer.msg(res.msg);
-						  //刷新数据 表格
-						  tableIns.reload();
-					  })
-				  });
-			  }
+			   }
 			 });
 
 			var url;
@@ -222,7 +217,28 @@
 					tableIns.reload();
 				})
 			});
-
+			//批量删除
+			function deleteBatch(){
+				//得到选中的数据行
+				var checkStatus = table.checkStatus('repairTable');
+				var data = checkStatus.data;
+				var params="";
+				$.each(data,function(i,item){
+					if(i==0){
+						params+="reids="+item.reid;
+					}else{
+						params+="&reids="+item.reid;
+					}
+				});
+				layer.confirm('真的删除选中的这些维修激励吗', function(index){
+					//向服务端发送删除指令
+					$.post("${cb}/repair/deleteBatchRepair.action",params,function(res){
+						layer.msg(res.msg);
+						//刷新数据 表格
+						tableIns.reload();
+					})
+				});
+			}
 			//查看大图
 			function showRepairImage(data){
 				

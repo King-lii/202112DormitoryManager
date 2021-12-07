@@ -2,6 +2,7 @@ package com.cb.dt.controller;
 
 import com.cb.dt.domain.Repair;
 import com.cb.dt.service.RepairService;
+import com.cb.dt.vo.FloorVo;
 import com.cb.dt.vo.RepairVo;
 import com.cb.sys.constast.SysConstast;
 import com.cb.sys.domain.User;
@@ -102,7 +103,6 @@ public class RepairController {
             return this.repairService.queryAllRepair(repairVo);
         }else{
             repairVo.setReduty(user.getRealname());
-            System.out.println("ceshi:"+repairVo);
             return this.repairService.queryDtnameRepair(repairVo);
         }
     }
@@ -121,6 +121,70 @@ public class RepairController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultObj.CANCEL_ERROR;
+        }
+    }
+
+    /**
+     * 维修完成——查询当前维修师傅的2处理中，3已完成，4未完成
+     * @param repairVo
+     * @return
+     */
+    @RequestMapping("loadAllFunishRepair")
+    public DataGridView loadAllFunishRepair(RepairVo repairVo) {
+        //通过session获取当前user对象
+        User user = (User)WebUtils.getHttpSession().getAttribute("user");
+        //queryManagerById查询出结果则为超级管理员可以显示所有数据，否则根据责任人名字查询
+        if (repairService.queryManagerById(user.getUserid())==1){
+            return this.repairService.queryAllRepair(repairVo);
+        }else{
+            repairVo.setReduty(user.getRealname());
+            return this.repairService.queryFunishRepair(repairVo);
+        }
+    }
+
+    /**
+     * 维修记录管理——查询当前维修师傅的3已完成工单
+     * @param repairVo
+     * @return
+     */
+    @RequestMapping("loadAllLogRepair")
+    public DataGridView loadAllLogRepair(RepairVo repairVo) {
+        //通过session获取当前user对象
+        User user = (User)WebUtils.getHttpSession().getAttribute("user");
+        //queryManagerById查询出结果则为超级管理员可以显示所有数据，否则根据责任人名字查询
+        if (repairService.queryManagerById(user.getUserid())==1){
+            return this.repairService.queryAllRepair(repairVo);
+        }else{
+            repairVo.setReduty(user.getRealname());
+            return this.repairService.queryFunishRepair(repairVo);
+        }
+    }
+
+    /**
+     * 维修记录管理——删除维修记录
+     */
+    @RequestMapping("deleteRepair")
+    public ResultObj deleteRepair(RepairVo repairVo) {
+        try {
+            this.repairService.deleteRepair(repairVo.getReid());
+            return ResultObj.DELETE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
+        }
+    }
+
+    /**
+     * 维修记录管理——批量删除维修记录
+     */
+    @RequestMapping("deleteBatchRepair")
+    public ResultObj deleteBatchRepair(RepairVo repairVo) {
+        try {
+            this.repairService.deleteBatchRepair(repairVo.getReids());
+            return ResultObj.DELETE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
         }
     }
 }

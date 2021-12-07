@@ -147,11 +147,11 @@
 					}}
 				  ,{field:'reduty', title:'责任人',align:'center',width:'120'}
 			      ,{field:'restate', title:'维修状态',align:'center',width:'100',templet:function(d){
-			      	if(d.restate=='1'){return '<font color=blue>待处理</font>'}
-			      	else if (d.restate=='2'){return '<font color=orange>处理中</font>'}
-			      	else if (d.restate=='3'){return '<font color=green>已完成</font>'}
-			      	else if (d.restate=='4'){return '<font color=red>未完成</font>'}
-			      	else if (d.restate=='5'){return '<font color=red>已取消</font>'}
+							 if(d.restate=='1'){return '<font color=blue>待处理</font>'}
+							 else if (d.restate=='2'){return '<font color=orange>处理中</font>'}
+							 else if (d.restate=='3'){return '<font color=green>已完成</font>'}
+							 else if (d.restate=='4'){return '<font color=red>未完成</font>'}
+							 else if (d.restate=='5'){return '<font color=red>已取消</font>'}
 			      }}
 			      ,{fixed: 'right', title:'操作', toolbar: '#repairBar', width:220,align:'center'}
 			    ]],

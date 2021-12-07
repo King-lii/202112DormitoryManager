@@ -45,7 +45,33 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
+    public DataGridView queryFunishRepair(RepairVo repairVo) {
+        Page<Object> page = PageHelper.startPage(repairVo.getPage(),repairVo.getLimit());
+        List<Repair> data = this.repairMapper.queryAllFunishRepair(repairVo);
+        return new DataGridView(page.getTotal(), data);
+    }
+
+    @Override
+    public DataGridView queryLogRepair(RepairVo repairVo) {
+        Page<Object> page = PageHelper.startPage(repairVo.getPage(),repairVo.getLimit());
+        List<Repair> data = this.repairMapper.queryAllLOGRepair(repairVo);
+        return new DataGridView(page.getTotal(), data);
+    }
+
+    @Override
     public int queryManagerById(int userid) {
         return this.repairMapper.queryManagerById(userid);
+    }
+
+    @Override
+    public void deleteRepair(int reid) {
+        this.repairMapper.deleteByPrimaryKey(reid);
+    }
+
+    @Override
+    public void deleteBatchRepair(int[] reids) {
+        for (int reid:reids) {
+            this.deleteRepair(reid);
+        }
     }
 }
