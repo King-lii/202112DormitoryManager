@@ -8,6 +8,7 @@ package com.cb.sys.constast;
 public interface SysConstast {
 
 	String USER_LOGIN_ERROR_MSG = "用户名或密码不正确";
+	String LOGIN_CHECKCODE_ERROR_PASS="验证码错误";
 	/**
 	 * 可用状态
 	 */

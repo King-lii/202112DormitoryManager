@@ -7,7 +7,7 @@ public class ResultObj {
 
 	private Integer code=0;
 	private String msg;
-	
+
 	/**
 	 * 添加成功
 	 */

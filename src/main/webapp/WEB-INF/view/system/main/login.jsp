@@ -18,7 +18,7 @@
 <body class="loginBody">
 <%--${cb}在AppLisener中获取当前路径返回给前台页面--%>
 	<form class="layui-form" id="loginFrm" method="post" action="${cb}/login/login.action">
-		<div class="login_face"><img src="${cb}/resources/images/face.jpg" class="userAvatar"></div>
+<%--		<div class="login_face"><img src="${cb}/resources/images/face.jpg" class="userAvatar"></div>--%>
 		<div class="layui-form-item input-item">
 			<label for="username">用户名</label>
 			<input type="text" placeholder="请输入用户名" autocomplete="off" name="loginname" class="layui-input" lay-verify="required">
@@ -29,8 +29,8 @@
 		</div>
 		<div class="layui-form-item input-item" id="imgCode">
 			<label for="code">验证码</label>
-			<input type="text" placeholder="请输入验证码" value="123" autocomplete="off" id="code" class="layui-input">
-			<img src="${cb}/resources/images/code.jpg">
+			<input type="text" placeholder="请输入验证码"  autocomplete="off" name="code" id="code" class="layui-input">
+			<img src="${cb}/login/getCode.action" onclick="this.src=this.src+'?'">
 		</div>
 		<div class="layui-form-item">
 			<button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
