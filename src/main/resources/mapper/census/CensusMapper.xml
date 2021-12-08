@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cb.census.mapper.CensusMapper">
+    <select id="loadAllUserAreaData" resultType="com.cb.census.domain.DataEntity">
+        SELECT address as name,count(1) as value FROM sys_user GROUP BY address
+    </select>
+
+    <select id="loadAlluserYearWorkOrder" resultType="com.cb.census.domain.DataEntity">
+        select reduty as name,count(1) as value from dt_repair
+        where DATE_FORMAT(retime,"%Y")=#{year}
+        and restate = #{restate}
+        GROUP BY reduty
+    </select>
+
+    <select id="loadAlluserMonthWorkOrder" resultType="java.lang.Integer">
+        select count(*) as data from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'01')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'02')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'03')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'04')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'05')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'06')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'07')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'08')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'09')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'10')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'11')
+        union all
+        select count(*) from dt_repair where DATE_FORMAT(retime,"%Y%m") =concat(#{year},'12')
+    </select>
+</mapper>

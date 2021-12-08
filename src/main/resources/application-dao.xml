@@ -44,6 +44,7 @@
             <value>
                 com.cb.sys.mapper
                 com.cb.dt.mapper
+                com.cb.census.mapper
             </value>
         </property>
         <!-- 注入sqlSessionFactory -->

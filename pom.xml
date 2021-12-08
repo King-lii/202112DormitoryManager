@@ -253,7 +253,12 @@
       <artifactId>mybatis-generator-core</artifactId>
       <version>1.4.0</version>
     </dependency>
-
+    <!--    引入hutool实现验证码-->
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>4.6.8</version>
+    </dependency>
   </dependencies>
 
 
