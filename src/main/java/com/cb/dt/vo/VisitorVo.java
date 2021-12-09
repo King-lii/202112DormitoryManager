@@ -1,6 +1,9 @@
 package com.cb.dt.vo;
 
 import com.cb.dt.domain.Visitor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @author lx
@@ -15,6 +18,48 @@ public class VisitorVo extends Visitor {
 
     // 接收多个id
     private int[] ids;
+    //模糊查询传参
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date searchbetime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date searchendtime;
+    //插入数据和更新数据传参
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date vtstartime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date vtouttime;
+
+    public Date getVtstartime() {
+        return vtstartime;
+    }
+
+    public void setVtstartime(Date vtstartime) {
+        this.vtstartime = vtstartime;
+    }
+
+    public Date getVtouttime() {
+        return vtouttime;
+    }
+
+    public void setVtouttime(Date vtouttime) {
+        this.vtouttime = vtouttime;
+    }
+
+    public Date getSearchbetime() {
+        return searchbetime;
+    }
+
+    public void setSearchbetime(Date searchbetime) {
+        this.searchbetime = searchbetime;
+    }
+
+    public Date getSearchendtime() {
+        return searchendtime;
+    }
+
+    public void setSearchendtime(Date searchendtime) {
+        this.searchendtime = searchendtime;
+    }
 
     public int[] getIds() {
         return ids;

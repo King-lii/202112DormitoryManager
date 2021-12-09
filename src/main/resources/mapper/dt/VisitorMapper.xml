@@ -56,10 +56,10 @@
       <if test="vtroom != null">
         vtroom,
       </if>
-      <if test="vtbetime != null">
+      <if test="vtstartime != null">
         vtbetime,
       </if>
-      <if test="vtendtime != null">
+      <if test="vtouttime != null">
         vtendtime,
       </if>
       <if test="vtdes != null">
@@ -85,11 +85,11 @@
       <if test="vtroom != null">
         #{vtroom,jdbcType=VARCHAR},
       </if>
-      <if test="vtbetime != null">
-        #{vtbetime,jdbcType=TIMESTAMP},
+      <if test="vtstartime != null">
+        #{vtstartime,jdbcType=TIMESTAMP},
       </if>
-      <if test="vtendtime != null">
-        #{vtendtime,jdbcType=TIMESTAMP},
+      <if test="vtouttime != null">
+        #{vtouttime,jdbcType=TIMESTAMP},
       </if>
       <if test="vtdes != null">
         #{vtdes,jdbcType=VARCHAR},
@@ -114,11 +114,11 @@
       <if test="vtroom != null">
         vtroom = #{vtroom,jdbcType=VARCHAR},
       </if>
-      <if test="vtbetime != null">
-        vtbetime = #{vtbetime,jdbcType=TIMESTAMP},
+      <if test="vtstartime != null">
+        vtbetime = #{vtstartime,jdbcType=TIMESTAMP},
       </if>
-      <if test="vtendtime != null">
-        vtendtime = #{vtendtime,jdbcType=TIMESTAMP},
+      <if test="vtouttime != null">
+        vtendtime = #{vtouttime,jdbcType=TIMESTAMP},
       </if>
       <if test="vtdes != null">
         vtdes = #{vtdes,jdbcType=VARCHAR},
@@ -159,11 +159,11 @@
       <if test="vtroom != null and vtroom!=''">
         and vtroom like concat("%",#{vtroom},"%")
       </if>
-      <if test="vtbetime != null ">
-        and vtbetime >= #{vtbetime}
+      <if test="searchbetime != null ">
+        and vtbetime >= #{searchbetime}
       </if>
-      <if test="vtendtime != null ">
-        and vtendtime <![CDATA[<=]]>#{vtendtime}
+      <if test="searchendtime != null ">
+        and vtendtime <![CDATA[<=]]>#{searchendtime}
       </if>
       <if test="vtdes != null and vtdes!=''">
         and vtdes like concat("%",#{vtdes},"%")

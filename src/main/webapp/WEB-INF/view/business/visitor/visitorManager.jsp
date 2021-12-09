@@ -61,13 +61,13 @@
 			 <div class="layui-inline">
 				 <label class="layui-form-label">开始时间:</label>
 				 <div class="layui-input-inline">
-					 <input type="text" name="vtbetime" id="vtbetime" readonly="readonly"  autocomplete="off" class="layui-input">
+					 <input type="text" name="searchbetime" id="searchbetime" readonly="readonly"  autocomplete="off" class="layui-input">
 				 </div>
 			 </div>
 			 <div class="layui-inline">
 				 <label class="layui-form-label">结束时间:</label>
 				 <div class="layui-input-inline">
-					 <input type="text" name="vtendtime"  id="vtendtime" readonly="readonly" autocomplete="off" class="layui-input">
+					 <input type="text" name="searchendtime"  id="searchendtime" readonly="readonly" autocomplete="off" class="layui-input">
 				 </div>
 			 </div>
 		 </div>
@@ -132,13 +132,13 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">访问时间:</label>
 					<div class="layui-input-inline">
-						<input type="text" name="vtbetime"  id="vtbetime2" readonly="readonly" autocomplete="off" class="layui-input">
+						<input type="text" name="vtstartime"  id="vtstartime" readonly="readonly" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">结束时间:</label>
 					<div class="layui-input-inline">
-						<input type="text" name="vtendtime"  id="vtendtime2" readonly="readonly" autocomplete="off" class="layui-input">
+						<input type="text" name="vtouttime"  id="vtouttime" readonly="readonly" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 			</div>
@@ -178,23 +178,24 @@
 			var form = layui.form;
 			var laydate=layui.laydate;
 			var table = layui.table;
-			//渲染时间
+			//渲染时间,渲染
 			laydate.render({
-				elem:'#vtbetime',
+				elem:'#vtstartime',
 				type:'datetime'
 			});
 			laydate.render({
-				elem:'#vtbetime2',
+				elem:'#vtouttime',
 				type:'datetime'
 			});
 			laydate.render({
-				elem:'#vtendtime',
+				elem:'#searchbetime',
 				type:'datetime'
 			});
 			laydate.render({
-				elem:'#vtendtime2',
+				elem:'#searchendtime',
 				type:'datetime'
 			});
+
 			//渲染数据表格
 			 tableIns=table.render({
 				 elem: '#visitorTable'   //渲染的目标对象
@@ -233,7 +234,6 @@
 			//模糊查询
 			$("#doSearch").click(function(){
 				var params=$("#searchFrm").serialize();
-				alert(params)
 				tableIns.reload({
 					url:"${cb}/visitor/loadAllVisitor.action?"+params ,
 				    page:{

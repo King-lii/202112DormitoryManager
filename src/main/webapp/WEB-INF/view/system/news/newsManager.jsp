@@ -157,6 +157,7 @@
 			//模糊查询
 			$("#doSearch").click(function(){
 				var params=$("#searchFrm").serialize();
+				alert("公告管理"+params)
 				tableIns.reload({
 					url:"${cb}/news/loadAllNews.action?"+params,
 					page:{curr:1}
