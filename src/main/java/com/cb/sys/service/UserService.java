@@ -31,6 +31,11 @@ public interface UserService {
     public void updateUser(UserVo userVo);
 
     /**
+     * 根据前台传参用户密码，查询旧密码是否正确
+     * @return
+     */
+    public int judgeUser(UserVo userVo);
+    /**
      * 根据id删除用户
      * @param userid
      */

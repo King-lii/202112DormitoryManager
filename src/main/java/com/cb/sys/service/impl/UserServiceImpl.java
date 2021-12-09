@@ -7,6 +7,7 @@ import com.cb.sys.mapper.RoleMapper;
 import com.cb.sys.mapper.UserMapper;
 import com.cb.sys.service.UserService;
 import com.cb.sys.utils.DataGridView;
+import com.cb.sys.utils.WebUtils;
 import com.cb.sys.vo.UserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -57,7 +58,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserVo userVo) {
+        //将台传输密码进行加密再传入数据库
         this.userMapper.updateByPrimaryKeySelective(userVo);
+    }
+
+    /**
+     * 判断密码是否正确
+     * @return
+     */
+    @Override
+    public int judgeUser(UserVo userVo) {
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        userVo.setUserid(user.getUserid());
+        userVo.setPwd(DigestUtils.md5DigestAsHex(userVo.getPwd().getBytes()));
+         //将密码加密再进行判断
+        return this.userMapper.judgeUser(userVo);
     }
 
     @Override

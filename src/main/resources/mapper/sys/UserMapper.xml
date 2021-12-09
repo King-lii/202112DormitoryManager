@@ -31,6 +31,10 @@
 		from sys_user
 		where userid = #{userid,jdbcType=INTEGER}
 	</select>
+<!--	查询密码是否正确-->
+	<select id="judgeUser" resultType="int">
+		select count(*) from sys_user where userid=#{userid} and pwd=#{pwd}
+	</select>
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from sys_user

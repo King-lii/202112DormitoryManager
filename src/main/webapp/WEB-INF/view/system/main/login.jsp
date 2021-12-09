@@ -18,8 +18,7 @@
 <body class="loginBody">
 <%--${cb}在AppLisener中获取当前路径返回给前台页面--%>
 	<form class="layui-form" id="loginFrm" method="post" action="${cb}/login/login.action">
-<%--		<div class="login_face"><img src="${cb}/resources/images/face.jpg" class="userAvatar"></div>--%>
-		<div class="layui-form-item input-item" style="margin-top: 80px">
+		<div class="layui-form-item input-item" style="margin-top: 70px">
 			<label for="username">用户名</label>
 			<input type="text" placeholder="请输入用户名" autocomplete="off" name="loginname" class="layui-input" lay-verify="required">
 		</div>

@@ -14,7 +14,9 @@ import com.cb.sys.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -104,6 +106,29 @@ public class LoginController {
         while (em.hasMoreElements()){
             WebUtils.getHttpSession().removeAttribute(em.nextElement().toString());
         }
+        return "system/main/login";
+    }
+    //判断密码是否正确
+    @RequestMapping("judgeUser")
+    @ResponseBody
+    private int judgeUser(UserVo userVo){
+        if(this.userService.judgeUser(userVo)==1){
+            //密码正确返回1
+            return 1;
+        }else{
+            //密码错误返回0
+            return 0;
+        }
+
+    }
+    @RequestMapping("updPwd")
+    private String updPwd(UserVo userVo){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        //将新密码赋给pwd变量进行修改
+        userVo.setPwd(DigestUtils.md5DigestAsHex(userVo.getNewpassword().getBytes()));
+        userVo.setUserid(user.getUserid());
+        this.userService.updateUser(userVo);
+
         return "system/main/login";
     }
 }

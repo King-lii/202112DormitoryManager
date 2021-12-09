@@ -110,4 +110,5 @@ public class User {
     public void setAvailable(Integer available) {
         this.available = available;
     }
+
 }

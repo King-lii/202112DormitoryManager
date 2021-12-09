@@ -12,8 +12,17 @@ public class UserVo extends User {
 	
 	private String code;
 
+	private String newpassword;
 	// 接收多个角色id
 	private Integer[] ids;
+
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
 
 	public Integer[] getIds() {
 		return ids;
@@ -47,5 +56,5 @@ public class UserVo extends User {
 		this.code = code;
 	}
 
-	
+
 }

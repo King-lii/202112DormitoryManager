@@ -1,6 +1,7 @@
 package com.cb.sys.mapper;
 
 import com.cb.sys.domain.User;
+import com.cb.sys.vo.UserVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,4 +32,10 @@ public interface UserMapper {
      * @param rid
      */
     void insertUserRole(@Param("uid")Integer userid, @Param("rid")Integer rid) ;
+
+    /**
+     * 根据前台传参用户密码，查询旧密码是否正确
+     * @return
+     */
+    int judgeUser(User user);
 }
