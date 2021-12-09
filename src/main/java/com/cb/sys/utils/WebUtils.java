@@ -10,7 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * web的工具类
- * @author lidada
+ * @author lx
  *
  */
 public class WebUtils {

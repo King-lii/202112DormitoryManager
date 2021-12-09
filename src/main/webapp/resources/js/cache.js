@@ -38,7 +38,7 @@ layui.use(['form','jquery',"layer"],function() {
         showNotice();
     })
 
-    //锁屏·························
+
     //锁屏开始
     function lockPage(){
         layer.open({

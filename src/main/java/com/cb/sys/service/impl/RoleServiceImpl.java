@@ -31,9 +31,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.queryAllRole(roleVo);
 	}
 
-	/**
-	 * 后期权限管理完成之后再来改
-	 */
+
 	@Override
 	public List<Role> queryRoleByUserIdForList(RoleVo roleVo, Integer userId) {
 		return roleMapper.queryAllRole(roleVo);

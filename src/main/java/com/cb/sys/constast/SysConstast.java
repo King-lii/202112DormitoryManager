@@ -75,23 +75,4 @@ public interface SysConstast {
 	Object DEFAULT_CAR_IMG = "images/defaultimage.jpg";
 	Object DEFAULT_REPAIR_IMG = "images/defaultrepairimage.jpg";
 
-	/**
-	 * 单号的前缀
-	 */
-	String CAR_ORDER_CZ = "CZ";
-	String CAR_ORDER_JC = "JC";
-	
-	/**
-	 * 归还状态
-	 */
-	Integer RENT_BACK_FALSE = 0;
-	Integer RENT_BACK_TRUE = 1;
-	
-	/**
-	 * 出租状态
-	 */
-	Integer RENT_CAR_TRUE = 1;
-	Integer RENT_CAR_FALSE = 0;
-	
-
 }

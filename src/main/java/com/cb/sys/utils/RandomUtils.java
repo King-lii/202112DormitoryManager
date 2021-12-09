@@ -7,7 +7,7 @@ import java.util.UUID;
 
 /**
  * 随机工具类
- * @author LJH
+ * @author lx
  *
  */
 public class RandomUtils {
@@ -28,7 +28,7 @@ public class RandomUtils {
 	
 	/**
 	 * 生成文件名使用时间+4位随机数
-	 * @param suffix 文件名称
+	 * @param fileName 文件名称
 	 */
 	public static String createFileNameUseTime(String fileName) {
 		String fileSuffix=fileName.substring(fileName.lastIndexOf("."),fileName.length());
@@ -50,7 +50,7 @@ public class RandomUtils {
 	
 	/**
 	 * 生成文件名使用UUID
-	 * @param suffix 文件名称
+	 * @param fileName 文件名称
 	 */
 	public static String createFileNameUseUUID(String fileName) {
 		String fileSuffix=fileName.substring(fileName.lastIndexOf("."),fileName.length());

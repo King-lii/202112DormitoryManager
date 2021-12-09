@@ -13,8 +13,8 @@ public class AppListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         //取到ServletContext
         ServletContext context=servletContextEvent.getServletContext();
+        //将cb放到ServletContext作用域，前台通过${cb}获取项目根目录
         context.setAttribute("cb", context.getContextPath());
-        System.err.println("---------Servlet容器创建成功 cb被放到ServletContext作用域-------");
     }
 
     @Override

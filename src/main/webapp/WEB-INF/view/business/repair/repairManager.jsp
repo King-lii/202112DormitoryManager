@@ -195,7 +195,7 @@
 				  ,{field:'dtname', title:'公寓分栋',align:'center',width:'90'}
 				  ,{field:'dtfloor', title:'楼层',align:'center',width:'90'}
 				  ,{field:'dtno', title:'宿舍号',align:'center',width:'90'}
-				  ,{field:'retime', title:'提交维修时间',align:'center',width:'120'}
+				  ,{field:'retime', title:'提交维修时间',align:'center',width:'180'}
 				  ,{field:'rephone', title:'联系电话',align:'center',width:'120'}
 				  ,{field:'redescribe', title:'描述',align:'center',width:'120'}
 				  ,{field:'reimg', title:'维修图片',align:'center',width:'120',templet:function(d){

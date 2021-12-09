@@ -1,7 +1,6 @@
 package com.cb.dt.mapper;
 
 import com.cb.dt.domain.Floor;
-import com.cb.dt.vo.FloorVo;
 
 import java.util.List;
 
